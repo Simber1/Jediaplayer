@@ -33,8 +33,7 @@ public class Player  {
         System.out.println("Set volume in %:");
         int volumeIn = scan.nextInt(); //taking next int for volume controls
         
-        
-        double volume = volumeIn/100;  //changing to 0.xx instead of xx%
+        double volume = volumeIn/100.0;  //changing to 0.xx instead of xx%
         Media hit = new Media(new File(song).toURI().toString());  //Changing song into a form that Media can use
         MediaPlayer mediaPlayer = new MediaPlayer(hit);  //Starting media player with track
         
