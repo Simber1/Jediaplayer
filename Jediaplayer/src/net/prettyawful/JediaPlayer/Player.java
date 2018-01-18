@@ -29,13 +29,13 @@ public class Player {
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);  //Setting file chooser to files only
 		int returnVal = fc.showOpenDialog(fc);  //Opening file chooser, returns 0 on success and 1 on fail
 		
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File song = fc.getSelectedFile();
-            System.out.println("Opening: " + song.getName() + ".");
-            return song;
-        } else {
-        	System.out.println("Canceled by user");
-        	return null;
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File song = fc.getSelectedFile();
+			System.out.println("Opening: " + song.getName() + ".");
+			return song;
+		} else {
+			System.out.println("Canceled by user");
+			return null;
         }
 		
 		
