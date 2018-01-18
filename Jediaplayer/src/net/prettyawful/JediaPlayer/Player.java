@@ -1,26 +1,57 @@
 package net.prettyawful.JediaPlayer;
 
 import java.io.File;
-//import javafx.scene.media.Media;
-//import javafx.scene.media.MediaPlayer;
+import java.util.Scanner;
 
-import javax.sound.sampled.Clip;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javax.swing.JFileChooser;
 
-public class Player {
-
-
+public class Player  {
+	
 	public static void main(String[] args) {
+		
+		@SuppressWarnings("unused")
+		final JFXPanel fxPanel = new JFXPanel();  //Makes JavaFX not die https://stackoverflow.com/questions/14025718/javafx-toolkit-not-initialized-when-trying-to-play-an-mp3-file-through-mediap/43277386#43277386
+        
+		String song = songSelect().toString();
+		
+        try {
+        	System.out.println(song.toString());
+        }
+        catch (NullPointerException exc) {
+        	System.out.println(exc);
+        	exc.printStackTrace();
+        	while(song == null) {
+        		song = songSelect().toString();
+        	}
+        }
+        
+        Scanner scan = new Scanner(System.in); //Scanner for volume controls
+        
+        System.out.println("Set volume in %:");
+        int volumeIn = scan.nextInt(); //taking next int for volume controls
+        
+        
+        double volume = volumeIn/100;  //changing to 0.xx instead of xx%
+        Media hit = new Media(new File(song).toURI().toString());  //Changing song into a form that Media can use
+        MediaPlayer mediaPlayer = new MediaPlayer(hit);  //Starting media player with track
+        
+        mediaPlayer.setVolume(volume);
+        mediaPlayer.play();  //Playing media
+       
+        
+        scan.close();
+        try {
+			Thread.sleep(1000000000);  //Sleeps to stop song from ending straight away
+		} catch (InterruptedException e) {
+			System.out.println("Sleep was interrupted");
+			e.printStackTrace();
+		}
+        
+        
 
-        
-		File song = songSelect();
-		System.out.println(song.toString());
-//        Media hit = new Media(new song.toURI().toString());
-//        MediaPlayer mediaPlayer = new MediaPlayer(hit);
-//        mediaPlayer.play();
-//        Clip clip = new AudioSystem.getClip();
-        
-//        Thread.sleep(clip.getMicrosecondLength() / 1000);
 	}
 	
 	
@@ -37,8 +68,6 @@ public class Player {
 			System.out.println("Canceled by user");
 			return null;
         }
-		
-		
 	}
 
 }
