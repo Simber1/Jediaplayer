@@ -37,7 +37,14 @@ public class Player  {
 
 		@SuppressWarnings("unused")
 		final JFXPanel fxPanel = new JFXPanel();  //Makes JavaFX not die https://stackoverflow.com/questions/14025718/javafx-toolkit-not-initialized-when-trying-to-play-an-mp3-file-through-mediap/43277386#43277386
-
+		
+		song = songSelect().toString();
+		System.out.println("selecting");
+		
+		Media hit = new Media(new File(song).toURI().toString());  //Changing song into a form that Media can use
+		MediaPlayer mediaPlayer = new MediaPlayer(hit);  //Starting media player with track
+		
+		mediaPlayer.setAutoPlay(true);
 
 
 
@@ -98,9 +105,7 @@ public class Player  {
 			System.out.println("selecting");
 			
 		}
-		Media hit = new Media(new File(song).toURI().toString());  //Changing song into a form that Media can use
-		MediaPlayer mediaPlayer = new MediaPlayer(hit);  //Starting media player with track
-		mediaPlayer.setAutoPlay(true);
+
 
 		mediaPlayer.setVolume(0.05);
 		if (stop ==2) {
