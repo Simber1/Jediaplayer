@@ -22,12 +22,14 @@ import javax.swing.border.EmptyBorder;
 
 public class Player  {
 
+	private Boolean DEBUG = true;
+	
 	private JFrame frame;
-	private JLabel label;
 	private static String song;
 	private MediaPlayer mediaPlayer;
 	private Media hit;
 	private int makeframemaybe;
+	
 	
 
 
@@ -116,47 +118,56 @@ public class Player  {
 		
 	}
 	
-	private void start(int stop) {
-		//Player player = new Player();
-		
-		if (stop ==0) {
-			song = songSelect().toString();
-			System.out.println("selecting");
-			
-		}
-
-
-		
-		if (stop ==2) {
-			if(mediaPlayer.getStatus()!=MediaPlayer.Status.PLAYING) {
-					mediaPlayer.play();  //Playing media
-					
+	private void start() {
+		if(mediaPlayer.getStatus()!=MediaPlayer.Status.PLAYING) {
+				mediaPlayer.play();  //Playing media
 				
-			}else {
+		}else {
 				System.out.println("Song is already playing, please stop it before starting another song");
-			}
+		}
+		if(DEBUG == true) {
 			System.out.println("starting");
-//			try {
-//				Thread.sleep(1000000000);  //Sleeps to stop song from ending straight away
-//			} catch (InterruptedException e) {
-//				System.out.println("Sleep was interrupted");
-//				e.printStackTrace();
-//			}
 		}
-		if(stop == 1) {
+	}
+	
+	private void pause() {
+		if(DEBUG == true) {
 			System.out.println(mediaPlayer.getStatus());
-			mediaPlayer.stop();
-			System.out.println("stopping");
-			System.out.println(mediaPlayer.getStatus());
-			
 		}
-		if(stop == 3) {
-			System.out.println(mediaPlayer.getStatus());
-			mediaPlayer.pause();
+		mediaPlayer.pause();
+		
+		if(DEBUG == true) {
 			System.out.println("Pausing");
 			System.out.println(mediaPlayer.getStatus());
 		}
 	}
+	
+	private void stop() {
+		
+		if(DEBUG == true) {
+			System.out.println(mediaPlayer.getStatus());
+		}
+		mediaPlayer.stop();
+		
+		if(DEBUG == true) {
+			System.out.println("stopping");
+			System.out.println(mediaPlayer.getStatus());
+		}
+	}
+	
+	private void select() {
+		String oldsong = song;
+		song = songSelect().toString();
+		
+		if(song == null) {
+			song = oldsong;
+		}
+		
+		if(DEBUG == true) {
+			System.out.println(song);
+		}
+	}
+
 
     private void makeFrame()
     {
@@ -182,25 +193,25 @@ public class Player  {
         
         JButton startButton = new JButton("Play");
         startButton.addActionListener(new ActionListener() {
-                               public void actionPerformed(ActionEvent e) { start(2); }
+                               public void actionPerformed(ActionEvent e) { start(); }
                            });
         toolbar.add(startButton);
         
         JButton pauseButton = new JButton("Pause");
         pauseButton.addActionListener(new ActionListener() {
-                               public void actionPerformed(ActionEvent e) { start(3); }
+                               public void actionPerformed(ActionEvent e) { pause(); }
                            });
         toolbar.add(pauseButton);
         
         JButton stopButton = new JButton("Stop");
         stopButton.addActionListener(new ActionListener() {
-                               public void actionPerformed(ActionEvent e) { start(1); }
+                               public void actionPerformed(ActionEvent e) { stop(); }
                            });
         toolbar.add(stopButton);
         
         JButton selectButton = new JButton("Song select");
         selectButton.addActionListener(new ActionListener() {
-                               public void actionPerformed(ActionEvent e) { start(0); }
+                               public void actionPerformed(ActionEvent e) { select(); }
                            });
         toolbar.add(selectButton);
 
