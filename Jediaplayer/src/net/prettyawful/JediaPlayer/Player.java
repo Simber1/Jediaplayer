@@ -2,7 +2,7 @@ package net.prettyawful.JediaPlayer;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
+
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -38,6 +38,10 @@ public class Player  {
 			makeFrame();
 			makeframemaybe++;
 		}
+		
+		
+		@SuppressWarnings("unused")
+		final JFXPanel fxPanel = new JFXPanel(); 
 			
 		song = Player.songSelect().toString();
 		hit = new Media(new File(song).toURI().toString());  //Changing song into a form that Media can use
@@ -176,7 +180,7 @@ public class Player  {
         JPanel toolbar = new JPanel();
         toolbar.setLayout(new GridLayout(1, 0));
         
-        JButton startButton = new JButton("Start");
+        JButton startButton = new JButton("Play");
         startButton.addActionListener(new ActionListener() {
                                public void actionPerformed(ActionEvent e) { start(2); }
                            });
